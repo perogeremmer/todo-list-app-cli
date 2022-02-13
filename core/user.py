@@ -7,7 +7,7 @@ class User(UserData):
     flag = 0
     
     while True:
-      email = input("Silahkan masukkan email anda: ").strip()
+      email = input("Silahkan masukkan email anda: ").strip().lower()
       password = input("Silahkan masukkan password anda: ").strip()
 
       data = self.get_by_email(email)
@@ -37,7 +37,7 @@ class User(UserData):
     
     while True:
       name = input("Silahkan masukkan nama anda: ").strip()
-      email = input("Silahkan masukkan email anda: ").strip()
+      email = input("Silahkan masukkan email anda: ").strip().lower()
       password = input("Silahkan masukkan password anda: ").strip()
 
       name.replace(" ", "")

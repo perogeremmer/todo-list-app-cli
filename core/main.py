@@ -43,7 +43,8 @@ class Main:
             print("2. Tambah Todo")
             print("3. Ubah Todo")
             print("4. Hapus Todo")
-            print("5. Logout")
+            print("5. Menyelesaikan Todo")
+            print("6. Logout")
             print("----------------\n")
             pilihan = int(input("Masukkan pilihan anda: "))
             if pilihan == 1:
@@ -59,7 +60,7 @@ class Main:
                 todo.delete_todo()
                 continue
             elif pilihan == 5:
-                todo.delete_todo()
+                todo.finish_todo()
                 continue
             elif pilihan == 6:
                 print("Keluar dari sistem")

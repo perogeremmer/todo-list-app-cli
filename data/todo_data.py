@@ -1,5 +1,8 @@
-import datetime
-todo_data = []
+from datetime import datetime
+
+todo_data = [
+    {'title': 'Belanja Bulanan', 'description': 'Belanja Bulanan di Supermarket', 'user_id': 1, 'finished_at': None, 'id': 1}
+]
 
 class TodoData:
     def __init__(self):

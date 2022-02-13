@@ -18,9 +18,12 @@ class Todo(TodoData):
         print("Daftar todo: ")
         print("-------------------------------")
         for item in data:
+            status = "Belum selesai" if not item['finished_at'] else "Sudah selesai"
+            
             print(f"ID: {item['id']}")
             print(f"Title: {item['title']}")
             print(f"Description: {item['description']}")
+            print(f"Status: {status}")
             print(f"---------------------------")
         
         sleep(5)
@@ -44,6 +47,7 @@ class Todo(TodoData):
 
             todo_data = self.insert()
             print("Berhasil menambahkan todo!")
+            sleep(1)
             
             while True:
                 option = input("Ingin menambahkan todo lagi? (y/n): ").strip()
@@ -93,6 +97,7 @@ class Todo(TodoData):
 
             todo_data = self.update(todo_id)
             print("Berhasil mengubah todo!")
+            sleep(4)
             break
 
         return todo_data
@@ -103,14 +108,16 @@ class Todo(TodoData):
         while True:
             todo_id = int(input("Silahkan masukkan id todo: "))
             
-            data = self.get(todo_id)
+            data = self.get(user_id=self.user_id, id=todo_id)
             
             if not data:
                 print("Todo tidak ditemukan!")
+                sleep(4)
                 return None
 
             todo_data = self.finish(todo_id)
             print("Berhasil menyelesaikan todo!")
+            sleep(4)
             break
 
         return todo_data
@@ -125,12 +132,14 @@ class Todo(TodoData):
             
             if not data:
                 print("Todo tidak ditemukan!")
+                sleep(4)
                 return
 
             self.delete(todo_id)
             
             todo_data = True
             print("Berhasil menghapus todo!")
+            sleep(4)
             break
 
         return todo_data
