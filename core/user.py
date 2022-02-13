@@ -40,9 +40,7 @@ class User(UserData):
       email = input("Silahkan masukkan email anda: ").strip().lower()
       password = input("Silahkan masukkan password anda: ").strip()
 
-      name.replace(" ", "")
       email.replace(" ", "")
-      password.replace(" ", "")
 
       data = self.get_by_email(email)
       

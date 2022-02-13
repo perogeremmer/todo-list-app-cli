@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 from core.todo import Todo
 from core.user import User
 
@@ -35,6 +36,8 @@ class Main:
         print(f"Hello, {user_data['name']}. Selamat datang di aplikasi todo!")
         print("----------------\n")
         
+        print("Now loading.....")
+        sleep(4)
         todo = Todo(user_data['id'])
         
         while True:

@@ -10,6 +10,14 @@ Clone this project then run it with:
 python main.py
 ```
 
+## Account
+
+You can use below credentials by using this project:
+- email: hudya@mail.com
+- password: 123456
+
+Or you can register by yourself.
+
 ## Contributing
 This private project is not open for contributing since it's only a simple program 😁
 
