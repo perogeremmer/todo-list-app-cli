@@ -1,4 +1,4 @@
-from os import system
+import sys
 from core.todo import Todo
 from core.user import User
 
@@ -18,7 +18,7 @@ class Main:
             if pilihan == 1:
                 data = self.user.login()
                 if not data:
-                    system.exit(1)
+                    sys.exit()
                 user_data = data
                 
                 break
@@ -27,7 +27,7 @@ class Main:
                 continue
             elif pilihan == 3:
                 print("Keluar dari sistem")
-                system.exit(1)
+                sys.exit()    
             else:
                 print("Pilihan tidak tersedia")
                 
@@ -35,9 +35,10 @@ class Main:
         print(f"Hello, {user_data['name']}. Selamat datang di aplikasi todo!")
         print("----------------\n")
         
-        todo = Todo()
+        todo = Todo(user_data['id'])
         
         while True:
+            print("\nMenu:")
             print("1. Lihat Todo")
             print("2. Tambah Todo")
             print("3. Ubah Todo")
@@ -46,17 +47,22 @@ class Main:
             print("----------------\n")
             pilihan = int(input("Masukkan pilihan anda: "))
             if pilihan == 1:
-                data = self.user.login()
-                if not data:
-                    system.exit(1)
-                user_data = data
-                
-                break
+                data = todo.get_todo()
+                print
             elif pilihan == 2:
-                self.user.register()
+                todo.create_todo()
+                continue
+            elif pilihan == 3:
+                todo.update_todo()
+                continue
+            elif pilihan == 4:
+                todo.delete_todo()
                 continue
             elif pilihan == 5:
+                todo.delete_todo()
+                continue
+            elif pilihan == 6:
                 print("Keluar dari sistem")
-                system.exit(1)
+                break
             else:
                 print("Pilihan tidak tersedia")

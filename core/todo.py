@@ -1,15 +1,37 @@
-import hashlib
+from time import sleep
 from data.todo_data import TodoData
 
 
 class Todo(TodoData):
     def __init__(self, user_id):
+        super(Todo, self).__init__()
         self.user_id = user_id
+        
+    def get_todo(self):
+        data = self.get(self.user_id)
+        
+        if len(data) < 1:
+            print("\nKamu belum memiliki todo!\n")
+            sleep(2)
+            return False
+        
+        print("Daftar todo: ")
+        print("-------------------------------")
+        for item in data:
+            print(f"ID: {item['id']}")
+            print(f"Title: {item['title']}")
+            print(f"Description: {item['description']}")
+            print(f"---------------------------")
+        
+        sleep(5)
+        input("Tekan enter untuk kembali ke menu utama")
+        return True
         
     def create_todo(self):
         todo_data = None
-
-        while True:
+        add_todo = True
+        
+        while add_todo:
             title = input("Silahkan masukkan judul todo: ").strip()
             description = input("Silahkan masukkan deskripsi todo: ").strip()
 
@@ -21,8 +43,20 @@ class Todo(TodoData):
             }
 
             todo_data = self.insert()
-            print("Berhasil mendaftarkan akun!")
-            break
+            print("Berhasil menambahkan todo!")
+            
+            while True:
+                option = input("Ingin menambahkan todo lagi? (y/n): ").strip()
+                option.replace(" ", "")
+                
+                if option not in ["y", "n"]:
+                    print("Masukkan pilihan yang benar! (y/n)")
+                    continue
+                
+                if option == "n":
+                    add_todo = False
+                    
+                break
 
         return todo_data
     
@@ -32,13 +66,17 @@ class Todo(TodoData):
         while True:
             todo_id = int(input("Silahkan masukkan id todo: "))
             
-            data = self.get(todo_id)
+            data = self.get(user_id=self.user_id, id=todo_id)
             
             if not data:
                 print("Todo tidak ditemukan!")
-                return None
+                return
             
-            print(f"{data['title']} - {data['description']}")
+            if self.user_id != data['user_id']:
+                print("Todo tidak ditemukan!")
+                return
+            
+            print(f"{data['title']} - {data['description']}\n")
             title = input("Silahkan masukkan judul todo (Kosongkan jika tidak ingin melakukan perubahan): ").strip()
             description = input("Silahkan masukkan deskripsi todo (Kosongkan jika tidak ingin melakukan perubahan): ").strip()
             
@@ -83,14 +121,16 @@ class Todo(TodoData):
         while True:
             todo_id = int(input("Silahkan masukkan id todo: "))
             
-            data = self.get(todo_id)
+            data = self.get(user_id=self.user_id, id=todo_id)
             
             if not data:
                 print("Todo tidak ditemukan!")
-                return None
+                return
 
-            todo_data = self.delete(todo_id)
-            print("Berhasil menyelesaikan todo!")
+            self.delete(todo_id)
+            
+            todo_data = True
+            print("Berhasil menghapus todo!")
             break
 
         return todo_data

@@ -1,4 +1,10 @@
-user_data = []
+"""
+Sample data.
+Password -> 123456
+"""
+user_data = [
+    {'name': 'Hudya', 'email': 'hudya@mail.com', 'password': 'e10adc3949ba59abbe56e057f20f883e', 'id': 1}
+]
 
 
 class UserData:
@@ -44,7 +50,7 @@ class UserData:
     def insert(self):
         self.validate(self.payload)
 
-        length = len(self.payload)
+        length = len(self.user_data)
         self.payload['id'] = (length + 1)
 
         self.user_data.append(self.payload)

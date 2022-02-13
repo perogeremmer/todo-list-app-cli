@@ -1,8 +1,5 @@
 import datetime
-
-
 todo_data = []
-
 
 class TodoData:
     def __init__(self):
@@ -19,13 +16,23 @@ class TodoData:
     def clear(self):
         self.payload = {}
 
-    def get(self, id=None):
+    def get(self, user_id=None, id=None):
         if not id:
-            return self.user_data
+            todos = []
+            
+            if len(self.todo_data) < 1:
+                return todos
+            
+            for item in self.todo_data:
+                if item['user_id'] == user_id:
+                    todos.append(item)
+                continue
+                
+            return todos
 
-        value = []
-        for item in self.user_data:
-            if item['id'] == id:
+        value = None
+        for item in self.todo_data:
+            if item['id'] == id and user_id == item['user_id']:
                 value = item
                 break
 
@@ -34,10 +41,10 @@ class TodoData:
     def insert(self):
         self.validate(self.payload)
 
-        length = len(self.payload)
+        length = len(self.todo_data)
         self.payload['id'] = (length + 1)
 
-        self.user_data.append(self.payload)
+        self.todo_data.append(self.payload)
         data = self.payload.copy()
 
         self.clear()
@@ -46,7 +53,7 @@ class TodoData:
     def update(self, id):
         self.validate(self.payload)
 
-        for item in self.user_data:
+        for item in self.todo_data:
             if item['id'] == id:
                 item.update(self.payload)
                 break
@@ -54,7 +61,7 @@ class TodoData:
         self.clear()
         
     def finish(self, id):
-        for item in self.user_data:
+        for item in self.todo_data:
             if item['id'] == id:
                 item['finished_at'] = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
                 break
@@ -64,7 +71,7 @@ class TodoData:
     def delete(self, id):
         index = 0
 
-        for idx, item in self.user_data:
+        for idx, item in enumerate(self.todo_data):
             if item['id'] == id:
                 index = idx
                 break
